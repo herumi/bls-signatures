@@ -92,20 +92,16 @@ bool InsecureSignature::VerifyNative(
         g2_t* mappedHashes,
         size_t len) {
 #if 1
-    mclBnG1 g1;
-    mclBnG2 g2;
-    mclBnGT e1, e2;
-    mcl::conv(&g1, &pubKeys[0]);
-    mcl::conv(&g2, &mappedHashes[0]);
-    mclBn_millerLoop(&e1, &g1, &g2);
-    for (size_t i = 1; i < len; i++) {
-        mcl::conv(&g1, &pubKeys[i]);
-        mcl::conv(&g2, &mappedHashes[i]);
-        mclBn_millerLoop(&e2, &g1, &g2);
-        mclBnGT_mul(&e1, &e1, &e2);
+    std::vector<mclBnG1> g1(len);
+    std::vector<mclBnG2> g2(len);
+    for (size_t i = 0; i < len; i++) {
+        mcl::conv(&g1[i], &pubKeys[i]);
+        mcl::conv(&g2[i], &mappedHashes[i]);
     }
-    mclBn_finalExp(&e1, &e1);
-    if (!mclBnGT_isOne(&e1)) {
+    mclBnGT e;
+    mclBn_millerLoopVec(&e, g1.data(), g2.data(), len);
+    mclBn_finalExp(&e, &e);
+    if (!mclBnGT_isOne(&e)) {
         return false;
     }
 #else

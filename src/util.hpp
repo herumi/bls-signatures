@@ -147,31 +147,31 @@ inline void conv(bn_t *out, const mclBnFr *in)
 */
 inline void conv(mclBnG1 *out, const g1_t *in)
 {
-    memcpy(&out->d[MCLBN_FP_UNIT_SIZE * 0], &in[0]->x, MCLBN_FP_UNIT_SIZE * 8);
-    memcpy(&out->d[MCLBN_FP_UNIT_SIZE * 1], &in[0]->y, MCLBN_FP_UNIT_SIZE * 8);
-    memcpy(&out->d[MCLBN_FP_UNIT_SIZE * 2], &in[0]->z, MCLBN_FP_UNIT_SIZE * 8);
+    memcpy(&out->x, &in[0]->x, sizeof(mclBnFp));
+    memcpy(&out->y, &in[0]->y, sizeof(mclBnFp));
+    memcpy(&out->z, &in[0]->z, sizeof(mclBnFp));
 }
 
 inline void conv(g1_t *out, const mclBnG1 *in)
 {
-    memcpy(&out[0]->x, &in->d[MCLBN_FP_UNIT_SIZE * 0], MCLBN_FP_UNIT_SIZE * 8);
-    memcpy(&out[0]->y, &in->d[MCLBN_FP_UNIT_SIZE * 1], MCLBN_FP_UNIT_SIZE * 8);
-    memcpy(&out[0]->z, &in->d[MCLBN_FP_UNIT_SIZE * 2], MCLBN_FP_UNIT_SIZE * 8);
+    memcpy(&out[0]->x, &in->x, sizeof(mclBnFp));
+    memcpy(&out[0]->y, &in->y, sizeof(mclBnFp));
+    memcpy(&out[0]->z, &in->z, sizeof(mclBnFp));
     out[0]->norm = 0;
 }
 
 inline void conv(mclBnG2 *out, const g2_t *in)
 {
-    memcpy(&out->d[MCLBN_FP_UNIT_SIZE * 0], &in[0]->x, MCLBN_FP_UNIT_SIZE * 8 * 2);
-    memcpy(&out->d[MCLBN_FP_UNIT_SIZE * 2], &in[0]->y, MCLBN_FP_UNIT_SIZE * 8 * 2);
-    memcpy(&out->d[MCLBN_FP_UNIT_SIZE * 4], &in[0]->z, MCLBN_FP_UNIT_SIZE * 8 * 2);
+    memcpy(&out->x, &in[0]->x, sizeof(mclBnFp2));
+    memcpy(&out->y, &in[0]->y, sizeof(mclBnFp2));
+    memcpy(&out->z, &in[0]->z, sizeof(mclBnFp2));
 }
 
 inline void conv(g2_t *out, const mclBnG2 *in)
 {
-    memcpy(&out[0]->x, &in->d[MCLBN_FP_UNIT_SIZE * 0], MCLBN_FP_UNIT_SIZE * 8 * 2);
-    memcpy(&out[0]->y, &in->d[MCLBN_FP_UNIT_SIZE * 2], MCLBN_FP_UNIT_SIZE * 8 * 2);
-    memcpy(&out[0]->z, &in->d[MCLBN_FP_UNIT_SIZE * 4], MCLBN_FP_UNIT_SIZE * 8 * 2);
+    memcpy(&out[0]->x, &in->x, sizeof(mclBnFp2));
+    memcpy(&out[0]->y, &in->y, sizeof(mclBnFp2));
+    memcpy(&out[0]->z, &in->z, sizeof(mclBnFp2));
     out[0]->norm = 0;
 }
 
